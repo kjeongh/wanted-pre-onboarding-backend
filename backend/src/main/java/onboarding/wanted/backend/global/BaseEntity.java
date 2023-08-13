@@ -20,6 +20,6 @@ public class BaseEntity {
     private LocalDateTime updatedAt;
 
     //TODO: soft delete구현
-//    private LocalDateTime deletedAt;
+    private LocalDateTime deletedAt;
 
 }

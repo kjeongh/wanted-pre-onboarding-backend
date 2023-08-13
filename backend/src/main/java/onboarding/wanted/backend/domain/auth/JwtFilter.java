@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global.auth;
+package onboarding.wanted.backend.domain.auth;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class JwtFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
         String jwt = resolveToken(httpServletRequest);
@@ -46,8 +46,7 @@ public class JwtFilter extends GenericFilterBean {
             logger.debug("유효하지 않은 JWT 토큰입니다. uri: ${}", requestURI);
         }
 
-
-
+        filterChain.doFilter(request, response);
     }
 
     // request 헤더에서 토큰 정보 꺼내오기

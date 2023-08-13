@@ -18,3 +18,7 @@ spring:
 
     generate-ddl: false
     defer-datasource-initialization: true
+
+logging:
+  level:
+    com.tutorial: debug

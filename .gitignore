@@ -38,6 +38,7 @@ backend/.idea/
 backend/*.gradle
 **/build/
 backend/!src/**/build/
+.idea/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored) in backend/
 backend/!gradle-wrapper.jar

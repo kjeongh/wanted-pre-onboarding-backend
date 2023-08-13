@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global.auth;
+package onboarding.wanted.backend.domain.auth;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -25,14 +26,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenProvider implements InitializingBean {
 
+    //TODO: 토큰 만료시간
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
+    private static final String BEARER_TYPE = "Bearer";
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     @Value("${jwt.secret}")
     private String secret; //TODO: autowire
 
-    @Value("${jwt.access-token-validity-seconds}")
-    private long tokenValiditySeconds;
     private Key key;
 
     //HMAC key설정
@@ -42,14 +45,12 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    //권한정보를 가지고 token생성
-    public String createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+    // 권한 객체로 access token 생성
+    public String createAccessToken(Authentication authentication) {
+        String authorities = getAuthString(authentication);
 
         long now = (new Date()).getTime();
-        Date expiration = new Date(now + this.tokenValiditySeconds * 1000);
+        Date expiration = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
@@ -59,16 +60,31 @@ public class TokenProvider implements InitializingBean {
                 .compact();
     }
 
+    // 권한 객체로 refresh token 생성
+    public String createRefreshToken(Authentication authentication) {
+        String authorities = getAuthString(authentication);
+
+        long now = (new Date()).getTime();
+        Date expiration = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
+
+        return Jwts.builder()
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(expiration)
+                .compact();
+    }
+
+    // 권한객체로 authorities 문자열 생성
+    private String getAuthString (Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+    }
+
     // token의 정보로부터 Authentication 객체 리턴
     public Authentication getAuthentication(String token) {
 
         //토큰으로부터 claim 파싱
-        Claims claims = Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = parseClaims(token);
 
         //토큰의 "auth"클레임으로부터 권한 객체 생성
         Collection<? extends GrantedAuthority> authorities =
@@ -77,9 +93,24 @@ public class TokenProvider implements InitializingBean {
                         .collect(Collectors.toList());
 
         // 권한 정보를 담은 User객체 생성
-        User principal = new User(claims.getSubject(), "", authorities);
+        UserDetails principal = new User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+    }
+
+    // token string으로부터 claim 파싱
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(accessToken)
+                    .getBody();
+
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
     }
 
 

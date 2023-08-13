@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global.auth;
+package onboarding.wanted.backend.domain.auth;
 
 
 import org.springframework.security.core.AuthenticationException;

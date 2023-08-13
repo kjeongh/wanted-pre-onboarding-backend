@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global;
+package onboarding.wanted.backend.global.response;
 
 import lombok.Getter;
 
