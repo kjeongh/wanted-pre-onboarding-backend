@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import onboarding.wanted.backend.domain.auth.Authority;
+import onboarding.wanted.backend.domain.auth.UserRole;
 import onboarding.wanted.backend.global.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Where;
@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
-@Where(clause = "deleted_at = null")
+@Where(clause = "deleted_at is NULL")
 public class User extends BaseEntity {
 
     @Id
@@ -34,5 +34,6 @@ public class User extends BaseEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Authority authority;
+    @Column(columnDefinition = "varchar(50) default 'ROLE_USER'")
+    private UserRole userRole;
 }
