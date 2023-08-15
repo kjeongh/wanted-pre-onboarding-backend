@@ -14,24 +14,8 @@ services:
     volumes:
       - ./db/data:/var/lib/mysql
 
-
-
   redis:
     container_name: redis-con
     image: redis
     ports:
       - "6379:6379"
-
-
-
-
-
-
-
-
-
-#networks:
-#  backend-net: # 이후 backend-net은 모두 expose로 변경
-#    driver: bridge
-#  frontend-net:
-#    driver: bridge
