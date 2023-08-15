@@ -1,9 +1,9 @@
-package onboarding.wanted.backend.global.config.auth;
+package onboarding.wanted.backend.global.config;
 
-import onboarding.wanted.backend.domain.auth.JwtAccessDeniedHandler;
-import onboarding.wanted.backend.domain.auth.JwtAuthenticationEntryPoint;
-import onboarding.wanted.backend.domain.auth.JwtFilter;
-import onboarding.wanted.backend.domain.auth.TokenProvider;
+import onboarding.wanted.backend.domain.auth.error.handler.JwtAccessDeniedHandler;
+import onboarding.wanted.backend.domain.auth.error.handler.JwtAuthenticationEntryPoint;
+import onboarding.wanted.backend.global.filter.JwtFilter;
+import onboarding.wanted.backend.domain.auth.util.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

@@ -1,10 +1,11 @@
 package onboarding.wanted.backend.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import onboarding.wanted.backend.domain.auth.TokenProvider;
+import onboarding.wanted.backend.domain.auth.util.TokenProvider;
 import onboarding.wanted.backend.domain.auth.repository.RefreshTokenRepository;
-import onboarding.wanted.backend.domain.user.User;
+import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.domain.user.dto.UserLoginRequest;
+import onboarding.wanted.backend.domain.user.dto.UserLoginResponse;
 import onboarding.wanted.backend.domain.user.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.user.dto.UserSignupResponse;
 import onboarding.wanted.backend.domain.user.mapper.UserMapper;
@@ -26,6 +27,7 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    // 회원가입
     public UserSignupResponse signup(UserSignupRequest signupReqDto) {
         if(userRepository.existsByEmail(signupReqDto.getEmail())) {
             throw new RuntimeException();
@@ -40,9 +42,9 @@ public class AuthService {
                 .build();
     }
 
-    public String login(UserLoginRequest loginReqDto) {
+    // 로그인
+    public UserLoginResponse login(UserLoginRequest loginReqDto) {
 
-        //TODO: 여기서 익셉션 터짐,,,
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginReqDto.getEmail(), loginReqDto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -50,28 +52,10 @@ public class AuthService {
         String accessToken = tokenProvider.createAccessToken(authentication);
         String refreshToken = tokenProvider.createRefreshToken(authentication);
 
-        //TODO: 토큰을 헤더에 저장해두기
-
-        return accessToken;
+        return UserLoginResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
-
-
-//    public String reissue(String refreshToken) {
-//        Optional<RefreshToken> foundRefreshTokenOptional = refreshTokenRepository.findById(refreshToken);
-//
-//        //refresh토큰 만료되지 않은 경우
-//        if (foundRefreshTokenOptional.isPresent()) {
-//            RefreshToken foundRefreshToken = foundRefreshTokenOptional.get();
-//            Long userId = foundRefreshToken.getUserId();
-//
-//            String newAccessToken = tokenProvider.createAccessToken();
-//
-//        }
-//        //refresh토큰 만료된 경우
-//        else {
-//            //UNAUTHORIZED 에러
-//        }
-//    }
-
 }
 

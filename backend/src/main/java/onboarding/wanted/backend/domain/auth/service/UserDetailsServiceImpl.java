@@ -1,7 +1,7 @@
 package onboarding.wanted.backend.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import onboarding.wanted.backend.domain.user.User;
+import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

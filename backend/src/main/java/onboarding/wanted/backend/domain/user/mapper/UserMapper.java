@@ -1,7 +1,7 @@
 package onboarding.wanted.backend.domain.user.mapper;
 
 import lombok.RequiredArgsConstructor;
-import onboarding.wanted.backend.domain.user.User;
+import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.domain.user.dto.UserSignupRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

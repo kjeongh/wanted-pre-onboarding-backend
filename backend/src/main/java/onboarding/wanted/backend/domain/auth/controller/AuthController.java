@@ -3,6 +3,7 @@ package onboarding.wanted.backend.domain.auth.controller;
 import lombok.RequiredArgsConstructor;
 import onboarding.wanted.backend.domain.auth.service.AuthService;
 import onboarding.wanted.backend.domain.user.dto.UserLoginRequest;
+import onboarding.wanted.backend.domain.user.dto.UserLoginResponse;
 import onboarding.wanted.backend.domain.user.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.user.dto.UserSignupResponse;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
@@ -22,6 +23,7 @@ public class AuthController {
     private final AuthService authService;
     private final UserRepository userRepository;
 
+    // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<ResultResponse> signup (
             @RequestBody UserSignupRequest signupReqDto) {
@@ -30,32 +32,18 @@ public class AuthController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_SIGNUP_SUCCESS, signupResDto));
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<ResultResponse> login (
             @RequestBody UserLoginRequest loginReqDto
     ) {
-        String accessToken = authService.login(loginReqDto);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS, accessToken));
+        UserLoginResponse loginResDto = authService.login(loginReqDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS, loginResDto));
     }
-
-
-//    @PostMapping("/test")
-//    public ResponseEntity<ResultResponse> login (@RequestBody String email
-//    ) {
-//        User user = userRepository.findByEmail(email).orElseThrow();
-//        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS, user));
-//    }
 
 //    //토큰 재발급
 //    @PostMapping("/reissue")
 //    public ResponseEntity<ResultResponse> reissue (String refreshToken) {
-//        //만료된 refreshToken이면 null반환
-//        String newAccessToken = authService.reissue(String refreshToken);
-//
-//        if(newAccessToken == null) {
-//
-//        }
-//
 //    }
 
 

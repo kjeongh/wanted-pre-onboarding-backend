@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.domain.auth;
+package onboarding.wanted.backend.domain.user.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.domain.auth;
+package onboarding.wanted.backend.domain.auth.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.domain.auth;
+package onboarding.wanted.backend.domain.auth.error.handler;
 
 
 import org.springframework.security.access.AccessDeniedException;

@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global.config.auth;
+package onboarding.wanted.backend.global.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

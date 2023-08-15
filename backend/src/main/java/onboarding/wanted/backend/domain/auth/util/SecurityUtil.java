@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.domain.auth;
+package onboarding.wanted.backend.domain.auth.util;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

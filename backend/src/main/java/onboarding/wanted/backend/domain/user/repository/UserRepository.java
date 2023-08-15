@@ -1,6 +1,6 @@
 package onboarding.wanted.backend.domain.user.repository;
 
-import onboarding.wanted.backend.domain.user.User;
+import onboarding.wanted.backend.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

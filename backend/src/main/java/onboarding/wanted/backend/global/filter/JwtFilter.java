@@ -1,7 +1,8 @@
-package onboarding.wanted.backend.domain.auth;
+package onboarding.wanted.backend.global.filter;
 
 
 import lombok.extern.slf4j.Slf4j;
+import onboarding.wanted.backend.domain.auth.util.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

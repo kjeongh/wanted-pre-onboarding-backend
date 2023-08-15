@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.global.auth;
+package onboarding.wanted.backend.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
