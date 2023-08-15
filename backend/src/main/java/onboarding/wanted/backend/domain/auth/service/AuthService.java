@@ -1,6 +1,7 @@
 package onboarding.wanted.backend.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
+import onboarding.wanted.backend.domain.auth.util.SecurityUtil;
 import onboarding.wanted.backend.domain.auth.util.TokenProvider;
 import onboarding.wanted.backend.domain.auth.repository.RefreshTokenRepository;
 import onboarding.wanted.backend.domain.user.entity.User;
@@ -9,6 +10,8 @@ import onboarding.wanted.backend.domain.auth.dto.Token;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupResponse;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
+import onboarding.wanted.backend.global.error.ErrorCode;
+import onboarding.wanted.backend.global.error.exception.BusinessException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -47,5 +50,14 @@ public class AuthService {
         String refreshToken = tokenProvider.createRefreshToken(authentication);
 
         return new Token(accessToken, refreshToken);
+    }
+
+
+    public User getLoginUser() {
+        User loginUser = SecurityUtil.getLoginUserEmail()
+                .flatMap(userRepository::findByEmail)
+                .orElseThrow(() -> new BusinessException(ErrorCode.LOGIN_USER_NOT_FOUND));
+
+        return loginUser;
     }
 }
