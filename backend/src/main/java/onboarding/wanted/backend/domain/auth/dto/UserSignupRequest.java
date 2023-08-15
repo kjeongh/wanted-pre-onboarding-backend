@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserSignupRequest {
 
-    //TODO: 이메일 어노테이션
     @Pattern(regexp = ".*@.*", message = "올바른 이메일 형식을 입력하세요. '@'가 포함되어야 합니다. 예)gildong@gmail.com")
     private String email;
 
