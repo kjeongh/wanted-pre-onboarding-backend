@@ -1,20 +1,22 @@
 package onboarding.wanted.backend.domain.auth.controller;
 
 import lombok.RequiredArgsConstructor;
-import onboarding.wanted.backend.domain.auth.service.AuthService;
-import onboarding.wanted.backend.domain.auth.dto.UserLoginRequest;
 import onboarding.wanted.backend.domain.auth.dto.Token;
+import onboarding.wanted.backend.domain.auth.dto.UserLoginRequest;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupResponse;
+import onboarding.wanted.backend.domain.auth.service.AuthService;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
 import onboarding.wanted.backend.global.response.ApiResponse;
-import onboarding.wanted.backend.global.response.ResultCode;
 import onboarding.wanted.backend.global.response.CustomResponse;
+import onboarding.wanted.backend.global.response.ResultCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,7 +29,7 @@ public class AuthController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<CustomResponse> signup (
-            @RequestBody UserSignupRequest signupReqDto) {
+            @Valid @RequestBody UserSignupRequest signupReqDto) {
 
         UserSignupResponse signupResDto = authService.signup(signupReqDto);
 
@@ -37,7 +39,7 @@ public class AuthController {
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<CustomResponse> login (
-            @RequestBody UserLoginRequest loginReqDto
+            @Valid @RequestBody UserLoginRequest loginReqDto
     ) {
         Token token = authService.login(loginReqDto);
 

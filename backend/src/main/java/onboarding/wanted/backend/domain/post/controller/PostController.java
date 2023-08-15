@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
@@ -21,7 +23,8 @@ public class PostController {
 
     // 게시글 생성
     @PostMapping
-    public ResponseEntity<CustomResponse> createPost(@RequestBody PostCreateRequest createReqDto) {
+    public ResponseEntity<CustomResponse> createPost(
+            @Valid @RequestBody PostCreateRequest createReqDto) {
 
         PostCreateResponse createResDto = postService.createPost(createReqDto);
 
@@ -32,7 +35,7 @@ public class PostController {
     @PutMapping("/{postId}")
     public ResponseEntity<CustomResponse> updatePost(
             @PathVariable Long postId,
-            @RequestBody PostUpdateRequest updateReqDto) {
+            @Valid @RequestBody PostUpdateRequest updateReqDto) {
 
         PostUpdateResponse updateResDto = postService.updatePost(postId, updateReqDto);
 
@@ -41,8 +44,7 @@ public class PostController {
 
     // 게시글 삭제
     @DeleteMapping("/{postId}")
-    public ResponseEntity<CustomResponse> deletePost(
-            @PathVariable Long postId) {
+    public ResponseEntity<CustomResponse> deletePost(@PathVariable Long postId) {
 
         postService.deletePost(postId);
 
@@ -51,8 +53,7 @@ public class PostController {
 
     // 게시글 단일 조회
     @GetMapping("/{postId}")
-    public ResponseEntity<CustomResponse> getPost(
-            @PathVariable Long postId) {
+    public ResponseEntity<CustomResponse> getPost(@PathVariable Long postId) {
 
         PostGetResponse getResDto = postService.getPost(postId);
 
