@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class PostCreateResponse {
 
     private String title;

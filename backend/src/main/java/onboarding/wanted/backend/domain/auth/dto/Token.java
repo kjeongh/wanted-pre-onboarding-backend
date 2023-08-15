@@ -11,4 +11,8 @@ public class Token {
     private String accessToken;
     private String refreshToken;
 
+    public static void of() {
+
+    }
+
 }

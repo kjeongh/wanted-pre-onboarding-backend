@@ -32,6 +32,7 @@ public class AuthService {
 
     @Transactional
     public UserSignupResponse signup(UserSignupRequest signupReqDto) {
+
         if(userRepository.existsByEmail(signupReqDto.getEmail())) {
             throw new BusinessException(ErrorCode.USER_ALREADY_EXISTS);
         }

@@ -12,6 +12,8 @@ import onboarding.wanted.backend.global.response.ResultResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
@@ -22,7 +24,8 @@ public class PostController {
 
     // 게시글 생성
     @PostMapping
-    public ResponseEntity<ResultResponse> createPost(@RequestBody PostCreateRequest createReqDto) {
+    public ResponseEntity<ResultResponse> createPost(
+            @Valid @RequestBody PostCreateRequest createReqDto) {
 
         PostCreateResponse createResDto = postService.createPost(createReqDto);
 
@@ -33,11 +36,20 @@ public class PostController {
     @PutMapping("/{postId}")
     public ResponseEntity<ResultResponse> updatePost(
             @PathVariable Long postId,
-            @RequestBody PostUpdateRequest updateReqDto) {
+            @Valid @RequestBody PostUpdateRequest updateReqDto) {
 
         PostUpdateResponse updateResDto = postService.updatePost(postId, updateReqDto);
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS, updateResDto));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ResultResponse> deletePost(
+            @PathVariable Long postId) {
+
+         postService.deletePost(postId);
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_DELETE_SUCCESS));
     }
 
 }

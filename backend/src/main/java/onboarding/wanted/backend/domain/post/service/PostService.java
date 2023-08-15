@@ -35,20 +35,32 @@ public class PostService {
     public PostUpdateResponse updatePost(Long postId, PostUpdateRequest updateReqDto) {
 
         User loginUser = authService.getLoginUser();
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
 
+        checkPostUpdateAuth(loginUser.getId(), post.getUser().getId());
+        post.updatePost(updateReqDto.getTitle(), updateReqDto.getContent());
+
+        return PostUpdateResponse.of(postRepository.save(post));
+
+    }
+
+    @Transactional
+    public void deletePost(Long postId) {
+
+        User loginUser = authService.getLoginUser();
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
 
         checkPostUpdateAuth(loginUser.getId(), post.getUser().getId());
 
-        post.updatePost(updateReqDto.getTitle(), updateReqDto.getContent());
-        return PostUpdateResponse.of(postRepository.save(post));
-
     }
+
+
 
     private void checkPostUpdateAuth(Long userId, Long authorId) {
         if (!userId.equals(authorId)) {
-            throw new BusinessException(ErrorCode.POST_UPDATE_FORBIDDEN);
+            throw new BusinessException(ErrorCode.POST_FORBIDDEN);
         }
     }
 

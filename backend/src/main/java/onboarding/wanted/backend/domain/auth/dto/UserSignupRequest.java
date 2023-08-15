@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserSignupRequest {
 
