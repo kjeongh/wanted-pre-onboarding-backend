@@ -5,10 +5,9 @@ import lombok.Getter;
 @Getter
 public class ResultResponse {
 
-
-    private int status; //http status code
-    private String message;
-    private Object data;
+    private final Integer status;
+    private final String message;
+    private final Object data;
 
     public ResultResponse(ResultCode result, Object data) {
         this.status = result.getStatus();
@@ -16,12 +15,12 @@ public class ResultResponse {
         this.data = data;
     }
 
-    //응답할 데이터가 따로 없음
+    // 응답 Body 없을 경우
     public static ResultResponse of(ResultCode result) {
         return new ResultResponse(result, "");
     }
 
-    //응답할 데이터가 있음
+    // 응답 body 존재할 경우
     public static ResultResponse of(ResultCode result, Object data) {
         return new ResultResponse(result, data);
     }

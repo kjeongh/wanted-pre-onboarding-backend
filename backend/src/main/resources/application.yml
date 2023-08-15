@@ -6,6 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  # jpa 설정
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,7 +18,7 @@ spring:
     generate-ddl: false
     defer-datasource-initialization: true
 
-# hibernate p6spy 로깅
+# sql 로깅 설정
 decorator:
   datasource:
     p6spy:
