@@ -17,7 +17,7 @@ public enum ResultCode {
     POST_LIST_GET_SUCCESS(HttpStatus.OK.value(), "게시글 목록 조회 성공"),
     POST_GET_SUCCESS(HttpStatus.OK.value(), "단일 게시글 조회 성공"),
     POST_UPDATE_SUCCESS(HttpStatus.OK.value(), "게시글 수정 성공"),
-    POST_DELETE_SUCCESS(HttpStatus.OK.value(), "게시글 삭제 성공");
+    POST_DELETE_SUCCESS(HttpStatus.NO_CONTENT.value(), "게시글 삭제 성공");
 
     private Integer status;
     private String message;
