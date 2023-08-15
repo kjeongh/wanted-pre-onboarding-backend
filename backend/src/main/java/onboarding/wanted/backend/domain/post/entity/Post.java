@@ -1,6 +1,7 @@
-package onboarding.wanted.backend.domain.post;
+package onboarding.wanted.backend.domain.post.entity;
 
 import lombok.*;
+import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.global.entity.BaseEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.SQLDelete;
@@ -29,4 +30,8 @@ public class Post extends BaseEntity {
 
     @NotBlank
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

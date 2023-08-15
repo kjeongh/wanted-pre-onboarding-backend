@@ -1,6 +1,7 @@
 package onboarding.wanted.backend.domain.auth.dto;
 
 import lombok.*;
+import onboarding.wanted.backend.domain.user.entity.User;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -19,4 +20,12 @@ public class UserSignupRequest {
     private String username;
 
     private String password;
+
+    public User toEntity(String encodedPassword) {
+        return User.builder()
+                .email(this.email)
+                .username(this.username)
+                .password(encodedPassword)
+                .build();
+    }
 }

@@ -5,10 +5,9 @@ import onboarding.wanted.backend.domain.auth.util.TokenProvider;
 import onboarding.wanted.backend.domain.auth.repository.RefreshTokenRepository;
 import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.domain.auth.dto.UserLoginRequest;
-import onboarding.wanted.backend.domain.auth.dto.UserLoginResponse;
+import onboarding.wanted.backend.domain.auth.dto.Token;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupResponse;
-import onboarding.wanted.backend.domain.user.mapper.UserMapper;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -33,17 +31,13 @@ public class AuthService {
             throw new RuntimeException();
         }
 
-        User user = userMapper.toEntity(signupReqDto);
-        userRepository.save(user);
+        User user = signupReqDto.toEntity(passwordEncoder.encode(signupReqDto.getPassword()));
 
-        return UserSignupResponse.builder()
-                .email(user.getEmail())
-                .username(user.getUsername())
-                .build();
+        return UserSignupResponse.of(userRepository.save(user));
     }
 
     // 로그인
-    public UserLoginResponse login(UserLoginRequest loginReqDto) {
+    public Token login(UserLoginRequest loginReqDto) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginReqDto.getEmail(), loginReqDto.getPassword());
@@ -52,10 +46,6 @@ public class AuthService {
         String accessToken = tokenProvider.createAccessToken(authentication);
         String refreshToken = tokenProvider.createRefreshToken(authentication);
 
-        return UserLoginResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return new Token(accessToken, refreshToken);
     }
 }
-

@@ -3,7 +3,7 @@ package onboarding.wanted.backend.domain.auth.controller;
 import lombok.RequiredArgsConstructor;
 import onboarding.wanted.backend.domain.auth.service.AuthService;
 import onboarding.wanted.backend.domain.auth.dto.UserLoginRequest;
-import onboarding.wanted.backend.domain.auth.dto.UserLoginResponse;
+import onboarding.wanted.backend.domain.auth.dto.Token;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupRequest;
 import onboarding.wanted.backend.domain.auth.dto.UserSignupResponse;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
@@ -37,14 +37,12 @@ public class AuthController {
     public ResponseEntity<ResultResponse> login (
             @RequestBody UserLoginRequest loginReqDto
     ) {
-        UserLoginResponse loginResDto = authService.login(loginReqDto);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS, loginResDto));
+        Token token = authService.login(loginReqDto);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS, token));
     }
 
-//    //토큰 재발급
+//    // 토큰 재발급
 //    @PostMapping("/reissue")
 //    public ResponseEntity<ResultResponse> reissue (String refreshToken) {
 //    }
-
-
 }
