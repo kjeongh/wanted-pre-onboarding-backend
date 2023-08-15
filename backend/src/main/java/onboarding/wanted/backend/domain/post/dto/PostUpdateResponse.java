@@ -9,20 +9,20 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PostCreateResponse {
+public class PostUpdateResponse {
 
     private String title;
     private String content;
     private String username;
-    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public static PostCreateResponse of(Post post) {
+    public static PostUpdateResponse of(Post post) {
 
-        return PostCreateResponse.builder()
+        return PostUpdateResponse.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
                 .username(post.getUser().getUsername())
-                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 

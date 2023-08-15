@@ -3,6 +3,8 @@ package onboarding.wanted.backend.domain.post.controller;
 import lombok.RequiredArgsConstructor;
 import onboarding.wanted.backend.domain.post.dto.PostCreateRequest;
 import onboarding.wanted.backend.domain.post.dto.PostCreateResponse;
+import onboarding.wanted.backend.domain.post.dto.PostUpdateRequest;
+import onboarding.wanted.backend.domain.post.dto.PostUpdateResponse;
 import onboarding.wanted.backend.domain.post.repository.PostRepository;
 import onboarding.wanted.backend.domain.post.service.PostService;
 import onboarding.wanted.backend.global.response.ResultCode;
@@ -27,10 +29,13 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_CREATE_SUCCESS,createResDto));
     }
 
-    @PutMapping
-    public ResponseEntity<ResultResponse> updatePost(@RequestBody PostCreateRequest createReqDto) {
+    // 게시글 수정
+    @PutMapping("/{postId}")
+    public ResponseEntity<ResultResponse> updatePost(
+            @PathVariable Long postId,
+            @RequestBody PostUpdateRequest updateReqDto) {
 
-        
+        PostUpdateResponse updateResDto = postService.updatePost(postId, updateReqDto);
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS, updateResDto));
     }

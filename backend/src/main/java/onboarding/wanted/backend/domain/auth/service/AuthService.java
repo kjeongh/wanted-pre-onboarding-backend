@@ -18,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -28,10 +30,10 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    // 회원가입
+    @Transactional
     public UserSignupResponse signup(UserSignupRequest signupReqDto) {
         if(userRepository.existsByEmail(signupReqDto.getEmail())) {
-            throw new RuntimeException();
+            throw new BusinessException(ErrorCode.USER_ALREADY_EXISTS);
         }
 
         User user = signupReqDto.toEntity(passwordEncoder.encode(signupReqDto.getPassword()));
@@ -39,7 +41,7 @@ public class AuthService {
         return UserSignupResponse.of(userRepository.save(user));
     }
 
-    // 로그인
+    @Transactional
     public Token login(UserLoginRequest loginReqDto) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -52,7 +54,7 @@ public class AuthService {
         return new Token(accessToken, refreshToken);
     }
 
-
+    @Transactional
     public User getLoginUser() {
         User loginUser = SecurityUtil.getLoginUserEmail()
                 .flatMap(userRepository::findByEmail)

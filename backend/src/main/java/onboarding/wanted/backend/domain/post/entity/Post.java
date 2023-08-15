@@ -35,4 +35,8 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public void updatePost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
