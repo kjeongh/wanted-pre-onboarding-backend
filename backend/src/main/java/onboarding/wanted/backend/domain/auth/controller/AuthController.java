@@ -2,10 +2,10 @@ package onboarding.wanted.backend.domain.auth.controller;
 
 import lombok.RequiredArgsConstructor;
 import onboarding.wanted.backend.domain.auth.service.AuthService;
-import onboarding.wanted.backend.domain.user.dto.UserLoginRequest;
-import onboarding.wanted.backend.domain.user.dto.UserLoginResponse;
-import onboarding.wanted.backend.domain.user.dto.UserSignupRequest;
-import onboarding.wanted.backend.domain.user.dto.UserSignupResponse;
+import onboarding.wanted.backend.domain.auth.dto.UserLoginRequest;
+import onboarding.wanted.backend.domain.auth.dto.UserLoginResponse;
+import onboarding.wanted.backend.domain.auth.dto.UserSignupRequest;
+import onboarding.wanted.backend.domain.auth.dto.UserSignupResponse;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
 import onboarding.wanted.backend.global.response.ResultCode;
 import onboarding.wanted.backend.global.response.ResultResponse;

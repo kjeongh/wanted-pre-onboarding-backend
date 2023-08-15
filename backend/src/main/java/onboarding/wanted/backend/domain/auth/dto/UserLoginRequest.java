@@ -1,4 +1,4 @@
-package onboarding.wanted.backend.domain.user.dto;
+package onboarding.wanted.backend.domain.auth.dto;
 
 import lombok.*;
 
