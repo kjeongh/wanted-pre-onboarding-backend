@@ -20,7 +20,7 @@ public enum ErrorCode {
 
     // POST
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없습니다."),
-    POST_UPDATE_FORBIDDEN(HttpStatus.FORBIDDEN, "게시글 수정 자격이 없습니다.");
+    POST_FORBIDDEN(HttpStatus.FORBIDDEN, "게시글에 대한 권한이 없습니다.");
 
     private final HttpStatus status;
     private final String message;
