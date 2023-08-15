@@ -3,13 +3,14 @@ package onboarding.wanted.backend.domain.auth.service;
 import lombok.RequiredArgsConstructor;
 import onboarding.wanted.backend.domain.user.entity.User;
 import onboarding.wanted.backend.domain.user.repository.UserRepository;
+import onboarding.wanted.backend.global.error.ErrorCode;
+import onboarding.wanted.backend.global.error.exception.BusinessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Collections;
 
@@ -21,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다: " + email));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new BusinessException(ErrorCode.LOGIN_USER_NOT_FOUND));
         return createUserDetails(user);
     }
 

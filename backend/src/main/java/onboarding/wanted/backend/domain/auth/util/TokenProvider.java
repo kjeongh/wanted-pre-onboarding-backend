@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import onboarding.wanted.backend.domain.auth.entity.RefreshToken;
 import onboarding.wanted.backend.domain.auth.repository.RefreshTokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,22 +28,24 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenProvider implements InitializingBean {
 
-    //TODO: 토큰 만료시간
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
-    private static final String BEARER_TYPE = "Bearer";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 60;
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 60;//TODO: 테스트용으로 시간 짧게 설정, 바꿔야 함
+
+    @Value("${jwt.access-token-expire-minute}")
+    private Integer accessTokenExpireMinute;
+
+    @Value("${jwt.refresh-token-expire-minute}")
+    private Integer refreshTokenExpireMinute;
 
     @Value("${jwt.secret}")
-    private String secret; //TODO: autowire
+    private String secret;
 
     private Key key;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    //HMAC key설정
+    // HMAC key설정
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -52,7 +55,7 @@ public class TokenProvider implements InitializingBean {
         String authorities = getAuthString(authentication);
 
         long now = (new Date()).getTime();
-        Date expiration = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
+        Date expiration = new Date(now + accessTokenExpireMinute * 60 * 1000);
 
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
@@ -69,17 +72,18 @@ public class TokenProvider implements InitializingBean {
         String authorities = getAuthString(authentication);
 
         long now = (new Date()).getTime();
-        Date expiration = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
+        Date expiration = new Date(now + refreshTokenExpireMinute * 60 * 1000);
 
         String refreshToken =  Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(expiration)
                 .compact();
 
-        //TODO: Redis에 토큰 저장
+        refreshTokenRepository.save(new RefreshToken(refreshToken));
 
         return refreshToken;
-
     }
 
     // 권한객체로 authorities 문자열 생성
@@ -89,19 +93,16 @@ public class TokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
     }
 
-    // token의 정보로부터 Authentication 객체 리턴
+    // token의 정보로부터 Authentication 객체 반환
     public Authentication getAuthentication(String token) {
 
-        //토큰으로부터 claim 파싱
         Claims claims = parseClaims(token);
 
-        //토큰의 "auth"클레임으로부터 권한 객체 생성
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        // 권한 정보를 담은 User객체 생성
         UserDetails principal = new User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
@@ -123,7 +124,7 @@ public class TokenProvider implements InitializingBean {
     }
 
 
-    // 토큰의 유효성 검증, 토큰을 파싱하여 exception들을 캐치
+    // 토큰 파싱하여 유효성 검증
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);

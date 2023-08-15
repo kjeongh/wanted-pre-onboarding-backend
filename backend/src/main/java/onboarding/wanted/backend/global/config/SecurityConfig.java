@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-@EnableMethodSecurity //@PreAuthorize 어노테이션을 메소드단위로 추가하기 위함
+@EnableMethodSecurity // @PreAuthorize 어노테이션을 메소드단위로 추가하기 위함
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -26,7 +26,6 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CorsFilter corsFilter;
 
-    // Assuming you have the necessary constructor for autowiring
     public SecurityConfig(TokenProvider tokenProvider, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
                           JwtAccessDeniedHandler jwtAccessDeniedHandler, CorsFilter corsFilter) {
         this.tokenProvider = tokenProvider;
@@ -46,16 +45,18 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
+                // 자격 증명 필터 skip 설정
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
 
+                // 인증/인가 필터, CORS필터 설정
                 .and()
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
-                // entrypoint, handler 설정하여 exception handling
+                // 자격 증명 Exception 핸들링
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler);

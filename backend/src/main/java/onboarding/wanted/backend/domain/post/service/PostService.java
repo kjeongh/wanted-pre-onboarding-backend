@@ -1,6 +1,7 @@
 package onboarding.wanted.backend.domain.post.service;
 
 import lombok.RequiredArgsConstructor;
+import onboarding.wanted.backend.domain.auth.service.AuthService;
 import onboarding.wanted.backend.domain.post.dto.PostCreateRequest;
 import onboarding.wanted.backend.domain.post.dto.PostCreateResponse;
 import onboarding.wanted.backend.domain.post.entity.Post;
@@ -13,11 +14,12 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final AuthService authService;
 
     public PostCreateResponse createPost(PostCreateRequest createReqDto) {
 
-        //USER정보 가져오기
-        Post post = createReqDto.toEntity(User.builder().build()); // TODO: 임시처리해둠
+        User loginUser = authService.getLoginUser();
+        Post post = createReqDto.toEntity(loginUser);
 
         return PostCreateResponse.of(postRepository.save(post));
     }

@@ -24,5 +24,4 @@ public class PostCreateRequest {
                 .user(user)
                 .build();
     }
-
 }
