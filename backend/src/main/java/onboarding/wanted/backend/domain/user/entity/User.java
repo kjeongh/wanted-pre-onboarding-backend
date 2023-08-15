@@ -35,4 +35,5 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "varchar(50) default 'ROLE_USER'")
     private UserRole userRole;
+
 }

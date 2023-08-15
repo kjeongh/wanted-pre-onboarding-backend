@@ -59,4 +59,5 @@ public class JwtFilter extends GenericFilterBean {
         }
         return null;
     }
+
 }

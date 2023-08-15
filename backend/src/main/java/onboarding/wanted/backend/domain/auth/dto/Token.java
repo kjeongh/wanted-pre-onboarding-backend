@@ -7,6 +7,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class Token {
+
     private String accessToken;
     private String refreshToken;
+
 }

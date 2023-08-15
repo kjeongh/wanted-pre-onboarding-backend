@@ -22,4 +22,5 @@ public class UserSignupResponse {
                 .createdAt(user.getCreatedAt())
                 .build();
     }
+
 }

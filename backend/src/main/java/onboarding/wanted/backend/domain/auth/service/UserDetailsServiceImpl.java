@@ -33,4 +33,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getPassword(),
                 Collections.singleton(authority));
     }
+
 }

@@ -23,4 +23,5 @@ public class PostService {
 
         return PostCreateResponse.of(postRepository.save(post));
     }
+
 }

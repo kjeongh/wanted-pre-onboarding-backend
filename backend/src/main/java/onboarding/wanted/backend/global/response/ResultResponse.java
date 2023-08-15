@@ -24,4 +24,5 @@ public class ResultResponse {
     public static ResultResponse of(ResultCode result, Object data) {
         return new ResultResponse(result, data);
     }
+
 }

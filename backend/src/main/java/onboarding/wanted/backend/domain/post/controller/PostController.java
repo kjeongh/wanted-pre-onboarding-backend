@@ -28,4 +28,5 @@ public class PostController {
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_CREATE_SUCCESS,createResDto));
     }
+
 }

@@ -21,6 +21,4 @@ public enum ResultCode {
 
     private final Integer status;
     private final String message;
-
-
 }

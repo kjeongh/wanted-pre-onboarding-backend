@@ -28,4 +28,5 @@ public class UserSignupRequest {
                 .password(encodedPassword)
                 .build();
     }
+
 }
