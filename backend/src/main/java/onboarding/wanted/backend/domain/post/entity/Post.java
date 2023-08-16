@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @SQLDelete(sql = "UPDATE post SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
-@Where(clause = "deleted_at is NOT NULL")
+@Where(clause = "deleted_at is NULL")
 public class Post extends BaseEntity {
 
     @Id
