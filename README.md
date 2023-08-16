@@ -71,6 +71,43 @@ jwt:
 
 <img width="390" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/f5e86120-00eb-436e-b637-d22c6960317d">
 
+```sql
+create table post
+(
+    id         bigint auto_increment
+        primary key,
+    created_at datetime(6)  null,
+    deleted_at datetime(6)  null,
+    updated_at datetime(6)  null,
+    content    varchar(255) null,
+    title      varchar(100) null,
+    user_id    bigint       not null,
+    constraint FK72mt33dhhs48hf9gcqrq4fxte
+        foreign key (user_id) references user (id)
+)
+    engine = InnoDB;
+
+
+-- auto-generated definition
+create table user
+(
+    id         bigint auto_increment
+        primary key,
+    created_at datetime(6)                     null,
+    deleted_at datetime(6)                     null,
+    updated_at datetime(6)                     null,
+    email      varchar(255)                    not null,
+    password   varchar(255)                    not null,
+    user_role  varchar(50) default 'ROLE_USER' null,
+    username   varchar(255)                    not null,
+    constraint UK_ob8kqyqqgmefl0aco34akdtpe
+        unique (email)
+)
+    engine = InnoDB;
+
+
+```
+
 <br>
 
 1. Redis
