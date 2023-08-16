@@ -22,6 +22,8 @@
 - postman으로 http://localhost/api ~ 엔드포인트 호출
 - 로그인, 회원가입을 제외하고 모두 헤더에 Authorization 값 추가 (Api명세에 설명)
 
+<br><br>
+
 ## 3. 데이터베이스 테이블 구조
 
 1. Mysql
@@ -33,6 +35,7 @@
 
 <img width="390" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/f5e86120-00eb-436e-b637-d22c6960317d">
 
+<br>
 
 1. Redis
 - 리프레시 토큰 저장
@@ -41,9 +44,13 @@
 
 <img width="701" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/852c2d64-e54d-463a-ae70-54718e4dedc3">
 
+<br><br>
+
 ## 4. 데모 영상 링크
 
 https://youtu.be/KwZXQiXeDWk
+
+<br><br>
 
 ## 5. 구현 방법 및 이유에 대한 간략한 설명
 
@@ -59,6 +66,8 @@ https://youtu.be/KwZXQiXeDWk
 - Cors 설정
 - 민감한 정보는 모두 .env나 application-secret에 기록하여 노출하지 않도록 함
 - 최적화를 위해 DB연결 지연, fk 지연로딩
+
+<br>
 
 ### 1) 회원가입
 
@@ -102,11 +111,13 @@ https://youtu.be/KwZXQiXeDWk
 - 권한이 없을 경우 FORBIDDEN에러 발생
 - 수정 후 updated_at 업데이트
 
-### 7) 특정 게시글을 삭제하는 엔드포인트
+### 7) 게시글 삭제
 
 - 헤더의 Authentication에 Bearer 토큰 정보가 있는지 검사하고, 유효한 토큰일 경우 로그인된 유저 정보를 가져와 삭제 권한이 있는지 확인
 - 권한이 없을 경우 FORBIDDEN에러 발생
 - 삭제 후 deleted_at 업데이트
+
+<br><br>
 
 ## 6. API명세
 
