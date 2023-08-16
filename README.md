@@ -17,6 +17,38 @@
 - 최상단에서 ./gradlew bootJar 실행
 - localhost 8080포트로 접속 - postman으로 엔드포인트 호출
 
+### .env
+
+```
+MYSQL_DATABASE=wanteddb
+MYSQL_ROOT_PASSWORD=akql1012!
+MYSQL_USER=wanted
+MYSQL_USER_PASSWORD=akql1012!
+
+```
+
+### application-secret.yml
+```
+
+#DB설정
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/wanteddb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: wanted
+    password: akql1012!
+
+  redis:
+    host: localhost
+    port: 6379
+
+jwt:
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  access-token-expire-minute: 10
+  refresh-token-expire-minute: 1440
+
+```
+
+
 
 <br>
 
