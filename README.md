@@ -170,7 +170,7 @@ https://www.postman.com/interstellar-trinity-842730/workspace/public/collection/
 
 ### 1) 회원가입 (POST)
 
-http://localhost:8080/api/auth/login
+http://localhost:8080/api/auth/signup
 
 - Request Body
 
@@ -256,7 +256,7 @@ http://localhost:8080/api/posts
 
 헤더 토큰 필요
 
-[http://localhost:8080/api/posts/](http://localhost:8080/api/posts/6){게시글ID}
+http://localhost:8080/api/posts/{게시글ID}
 
 - Path variable : postId
 - Request Body
@@ -287,7 +287,7 @@ http://localhost:8080/api/posts
 
 헤더 토큰 필요
 
-[http://localhost:8080/api/posts/](http://localhost:8080/api/posts/6){게시글ID}
+http://localhost:8080/api/posts/{게시글ID}
 
 - Path variable : postId
 - Response(204)
@@ -296,7 +296,7 @@ http://localhost:8080/api/posts
 
 헤더 토큰 필요
 
-[http://localhost:8080/api/posts/](http://localhost:8080/api/posts/6){게시글ID}
+http://localhost:8080/api/posts/{게시글ID}
 
 - Path variable : postId
 
@@ -320,7 +320,7 @@ http://localhost:8080/api/posts
 
 헤더 토큰 필요
 
-[http://localhost:8080/api/posts](http://localhost:8080/api/posts?size&sort&page)?sort=&page=&size=
+http://localhost:8080/api/posts?sort=&page=&size=
 
 - Query parameter: page, sort, size
 
