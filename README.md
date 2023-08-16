@@ -252,7 +252,7 @@ http://localhost:8080/api/posts
 }
 ```
 
-### 3) 게시글 수정 (PUT)
+### 4) 게시글 수정 (PUT)
 
 헤더 토큰 필요
 
@@ -283,7 +283,7 @@ http://localhost:8080/api/posts
 }
 ```
 
-### 4) 게시글 삭제 (DELETE)
+### 5) 게시글 삭제 (DELETE)
 
 헤더 토큰 필요
 
@@ -292,7 +292,7 @@ http://localhost:8080/api/posts
 - Path variable : postId
 - Response(204)
 
-### 3) 게시글 단일조회 (GET)
+### 6) 게시글 단일조회 (GET)
 
 헤더 토큰 필요
 
@@ -316,7 +316,7 @@ http://localhost:8080/api/posts
 }
 ```
 
-### 3) 게시글 목록 조회 (GET)
+### 7) 게시글 목록 조회 (GET)
 
 헤더 토큰 필요
 
