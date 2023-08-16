@@ -11,16 +11,20 @@
 ## 2. 애플리케이션 실행 방법
 
 - 레포지토리 클론
-- application-sercet.yml, .env추가 (Api명세에 첨부)
-- 백엔드 앱 빌드
-- postman으로 엔드포인트 호출
+- src/main/resources 하위에 application-secret.yml파일 추가 (리드미 최하단에 첨부)
+- 최상단(docker-compose와 동일) 위치에 .env추가 (리드미 최하단에 첨부)
+- docker-compose up --build
+- 최상단에서 ./gradlew bootJar 실행
+- localhost 8080포트로 접속 - postman으로 엔드포인트 호출
+
 
 <br>
 
 ### 엔드포인트 호출 방법
 
 - postman으로 http://localhost/api ~ 엔드포인트 호출
-- 로그인, 회원가입을 제외하고 모두 헤더에 Authorization 값 추가 (Api명세에 설명)
+- 로그인, 회원가입을 제외하고 모두 헤더에 Authorization 값 추가
+- (로그인하여 받은 accessToken을 "Bearer "뒤에 붙여 헤더의Authorization에 추가)
 
 <br><br>
 
