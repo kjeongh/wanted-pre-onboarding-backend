@@ -1,14 +1,6 @@
 # wanted-pre-onboarding-backend
 2023 8월 원티드 BE 프리온보딩 사전과제
 
-# 리드미
-
-- ~~지원자의 성명~~
-- ~~애플리케이션의 실행 방법 (엔드포인트 호출 방법 포함)~~
-- ~~데이터베이스 테이블 구조~~
-- ~~구현한 API의 동작을 촬영한 데모 영상 링크~~
-- ~~구현 방법 및 이유에 대한 간략한 설명~~
-- API 명세(request/response 포함)
 
 ## 1. 지원자의 성명
 
@@ -39,14 +31,15 @@
 - 유저의 권한 정보 Enum 저장
 - Post테이블에 외래키로 유저 id를 두어 연관관계 구성
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5b3cb66f-ea98-4573-9515-edfd301c52af/Untitled.png)
+<img width="390" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/f5e86120-00eb-436e-b637-d22c6960317d">
+
 
 1. Redis
 - 리프레시 토큰 저장
 - refreshToken: {토큰} 형태로 Hash자료구조로 저장
 - refreshToken생성시 설정한 expiration과 동일하게 TTL 설정
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7ea2c676-7dec-4db1-b517-8bc58d44c785/Untitled.png)
+<img width="701" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/852c2d64-e54d-463a-ae70-54718e4dedc3">
 
 ## 4. 데모 영상 링크
 
@@ -94,7 +87,8 @@ https://youtu.be/KwZXQiXeDWk
 - 유효한 토큰일 경우 게시글 목록 조회 가능
 - soft delete를 구현하여 deleted_at이 null인 게시글만 조회
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de2bfd45-ab3d-4a54-9b5b-c5d1fc6c6967/Untitled.png)
+<img width="685" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/34296050-1db7-4cb9-a3a8-29cb04441c5c">
+
 
 ### 5) 단일 게시글 조회
 
@@ -122,7 +116,8 @@ https://www.postman.com/interstellar-trinity-842730/workspace/public/collection/
 
 ### 공통
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2b5839d7-9e2b-4667-a316-164b43fb156e/Untitled.png)
+<img width="672" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/6e8516c8-c956-4480-9896-f4066cc8b982">
+
 
 회원가입과 로그인을 제외하고 모두 ‘Bearer {jwt토큰}’형태의 Authorization값이 헤더에 포함되어야 함
 
@@ -282,6 +277,7 @@ http://localhost:8080/api/posts
 
 - Query parameter: page, sort, size
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e5787e3b-883e-41cc-8d59-868384e1f718/Untitled.png)
+<img width="655" alt="image" src="https://github.com/kjeongh/wanted-pre-onboarding-backend/assets/88549117/2dff1e46-aad0-4c20-83bb-675a2b469457">
+
 
 - Response(200)
