@@ -14,7 +14,7 @@
 - src/main/resources 하위에 application-secret.yml파일 추가 (리드미 최하단에 첨부)
 - 최상단(docker-compose와 동일) 위치에 .env추가 (리드미 최하단에 첨부)
 - docker-compose 파일 위치에서 docker-compose up --build 실행
-- 최상단에서 ./gradlew bootJar 실행
+- 최상단에서 ./gradlew bootJar 실행 (빌드 실패시 /gradlew clean)
 - localhost 8080포트로 접속 - postman으로 엔드포인트 호출
 
 ### .env
