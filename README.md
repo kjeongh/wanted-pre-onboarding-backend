@@ -292,3 +292,38 @@ http://localhost:8080/api/posts
 
 
 - Response(200)
+
+```sql
+{
+  "status": 200,
+  "message": "게시글 목록 조회 성공",
+  "data": {
+    "posts": [
+      {
+        "title": "테스트용 게시글 타이틀",
+        "content": "테스트용 게시글입니다.",
+        "username": "김정현",
+        "createdAt": "2023-08-16T05:37:26.065587",
+        "updatedAt": "2023-08-16T05:37:26.065587"
+      },
+      {
+        "title": "수정 테스트용 게시글 타이틀",
+        "content": "다시 수정 테스트용 게시글입니다.",
+        "username": "김정현",
+        "createdAt": "2023-08-16T20:15:58.192636",
+        "updatedAt": "2023-08-16T20:17:42.775093"
+      },
+      {
+        "title": "테스트",
+        "content": "테스트용 게시글",
+        "username": "김정현",
+        "createdAt": "2023-08-16T21:33:46.466739",
+        "updatedAt": "2023-08-16T21:33:46.466739"
+      }
+    ],
+    "total": 3,
+    "totalPages": 1,
+    "totalElements": 3
+  }
+}
+``` 
